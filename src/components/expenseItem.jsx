@@ -1,6 +1,5 @@
 import "./expenseItem.css";
 import ExpenseDate from "./expenseDate.jsx";
-import "./expenseItem.jsx";
 
 const ExpenseItem = (props) => {
   return (
