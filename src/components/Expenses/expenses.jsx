@@ -5,8 +5,8 @@ import ExpenseItem from "./expenseItem.jsx";
 const Expenses = (props) => {
   return (
     <Card className="expenses">
-      {props.items.map((expense, index) => (
-        <ExpenseItem key={index} data={expense} />
+      {props.items.map((expense) => (
+        <ExpenseItem key={expense.id} data={expense} />
       ))}
     </Card>
   );
