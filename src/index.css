@@ -8,9 +8,62 @@ html {
 
 body {
   margin: 0;
-  background: #3f3f3f;
 }
 
 main {
   margin-top: 6rem;
+  padding-bottom: 2rem;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.app {
+  min-height: 100vh;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.app.light {
+  background: #f3f4f6;
+  color: #1f2937;
+}
+
+.app.light .main-header {
+  background: #6d28d9;
+}
+
+.app.dark {
+  background: #111827;
+  color: #f9fafb;
+}
+
+.app.dark .main-header {
+  background: #1f2937;
+}
+
+.app.dark .login {
+  background: #1f2937;
+}
+
+.app.dark .login label {
+  color: #f9fafb;
+}
+
+.app.dark .login input {
+  background: #111827;
+  color: #f9fafb;
+  border-color: #4b5563;
+}
+
+.app.dark .card {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.45);
+}
+
+.app.dark .theme-toggle:hover,
+.app.dark .theme-toggle:active,
+.app.dark .nav button:hover,
+.app.dark .nav button:active {
+  background: #374151;
+  color: #f9fafb;
 }

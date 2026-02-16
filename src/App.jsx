@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Expenses from "./components/Expenses/expenses.jsx";
 import Login from "./components/Login/Login";
 import MainHeader from "./components/MainHeader/MainHeader";
 import NewExpense from "./components/NewExpense/newExpense.jsx";
+import ThemeContext from "./store/theme-context.jsx";
 
 const API_BASE = "http://localhost:3000";
 
 const App = () => {
+  const themeCtx = useContext(ThemeContext);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [expenses, setExpenses] = useState([]);
 
@@ -83,7 +85,7 @@ const App = () => {
   };
 
   return (
-    <>
+    <div className={`app ${themeCtx.theme}`}>
       <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
       <main>
         {!isLoggedIn ? (
@@ -95,7 +97,7 @@ const App = () => {
           </>
         )}
       </main>
-    </>
+    </div>
   );
 };
 

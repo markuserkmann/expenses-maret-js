@@ -16,3 +16,26 @@
   color: #ffffff;
   margin: 0;
 }
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.theme-toggle {
+  font: inherit;
+  font-weight: 700;
+  border: 1px solid #ffffff;
+  border-radius: 6px;
+  background: transparent;
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.theme-toggle:hover,
+.theme-toggle:active {
+  background: #741188;
+  color: #fcb6ff;
+}
