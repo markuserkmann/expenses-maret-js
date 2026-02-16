@@ -1,65 +1,37 @@
 import { useEffect, useState } from "react";
-import "./app.css";
-import Expenses from "./components/Expenses/expenses.jsx";
-import NewExpense from "./components/NewExpense/newExpense.jsx";
-
-const API_BASE = "http://localhost:3000";
+import Home from "./components/Home/Home";
+import Login from "./components/Login/Login";
+import MainHeader from "./components/MainHeader/MainHeader";
 
 const App = () => {
-  const [expenses, setExpenses] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const loadExpenses = async () => {
-      try {
-        const response = await fetch(`${API_BASE}/expenses`);
-        if (!response.ok) {
-          return;
-        }
-        const data = await response.json();
-        const loaded = Array.isArray(data.expenses) ? data.expenses : [];
-        setExpenses(
-          loaded.map((expense) => ({
-            ...expense,
-            date: new Date(expense.date),
-          }))
-        );
-      } catch {
-        // Ignore load errors for now.
-      }
-    };
+    const storedUserLoggedInInformation =
+      localStorage.getItem("isLoggedUser");
 
-    loadExpenses();
+    if (storedUserLoggedInInformation === "1") {
+      setIsLoggedIn(true);
+    }
   }, []);
 
-  const addExpenseHandler = async (expense) => {
-    try {
-      const response = await fetch(`${API_BASE}/expenses`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(expense),
-      });
-      if (!response.ok) {
-        return;
-      }
-      const data = await response.json();
-      const savedExpense = data.expense || expense;
-      setExpenses((prevExpenses) => [
-        {
-          ...savedExpense,
-          date: new Date(savedExpense.date),
-        },
-        ...prevExpenses,
-      ]);
-    } catch {
-      // Ignore save errors for now.
-    }
+  const loginHandler = (email) => {
+    setIsLoggedIn(true);
+    localStorage.setItem("isLoggedUser", "1");
+    localStorage.setItem("loggedUserEmail", email);
+  };
+
+  const logoutHandler = () => {
+    localStorage.removeItem("isLoggedUser");
+    localStorage.removeItem("loggedUserEmail");
+    setIsLoggedIn(false);
   };
 
   return (
-    <div>
-      <NewExpense onAddExpense={addExpenseHandler} />
-      <Expenses items={expenses} />
-    </div>
+    <>
+      <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
+      <main>{!isLoggedIn ? <Login onLogin={loginHandler} /> : <Home />}</main>
+    </>
   );
 };
 
